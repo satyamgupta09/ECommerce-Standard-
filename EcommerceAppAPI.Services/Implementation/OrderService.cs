@@ -1,6 +1,6 @@
 ﻿namespace ECommerce_Standard_.EcommerceAppAPI.Services.Implementation
 {
-    public class OrderService
+    public interface OrderService
     {
     }
 }
