@@ -1,6 +1,12 @@
 ﻿namespace ECommerce_Standard_.EcommerveApp.API.Respositeries.Interfaces
+using ECommerce_Standard_.EcommerceApp.Core.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 {
-    public class IProductRepository
+    public interface IProductRepository
     {
+        public Task<IEnumerable<Product>> GetAllProducts();
+        public Task<Product?> GetProductById(int productId);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ECommerce_Standard_.EcommerveApp.API.Respositeries.Interfaces
 {
-    public interface IUserRespository
+    public interface IUserRepository
     {
     }
 }

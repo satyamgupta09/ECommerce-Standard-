@@ -1,6 +1,6 @@
 ﻿namespace ECommerce_Standard_.EcommerceAppAPI.Services.Implementation
 {
-    public interface ProductService
+    public class ProductService
     {
     }
 }
