@@ -2,19 +2,17 @@
 using ECommerce_Standard_.EcommerveApp.API.Respositeries.Interfaces;
 using MySqlConnector;
 
-namespace ECommerce_Standard_.EcommerveApp.API.Respositeries.Implmentation
 
 namespace ECommerce_Standard_.EcommerveApp.API.Respositeries.Implmentation
 {
-    public class ProductRepository
-    public interface ProductRepository
-    {
-        private readonly IProductRepository _productRepository;
+    public class ProductRepository: IProductRepository
+    {  
+        //private readonly IProductRepository _productRepository;
 
-        public ProductRepository(IProductRepository productRepository)
-        {
-            _productRepository = productRepository;
-        }
+        //public ProductRepository(IProductRepository productRepository)
+        //{
+        //    _productRepository = productRepository;
+        //}
 
         public async Task<IEnumerable<Product>> GetAllProducts()
         {

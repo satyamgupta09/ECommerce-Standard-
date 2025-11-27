@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 {
     public interface IProductRepository
-    public class IProductRepository
 {
     public Task<IEnumerable<Product>> GetAllProducts();
     public Task<Product?> GetProductById(int productId);
