@@ -13,10 +13,10 @@ namespace ECommerce_Standard_.EcommerceApp.API.Controllers
         }
 
         [HttpGet("products")]
-        public IActionResult GetAllProducts()
+        public async Task<IActionResult> GetAllProducts()
         {
-            var products = _service.GetAllProducts();
-            if(products == null)
+            var products = await _service.GetAllProducts();
+            if (products == null)
             {
                 return NotFound("No products found");
             }
@@ -24,13 +24,14 @@ namespace ECommerce_Standard_.EcommerceApp.API.Controllers
         }
 
         [HttpGet("products/{id}")]
-        public IActionResult GetProductById(int id)
+        public async Task<IActionResult> GetProductById(int id)
         {
-            var product = _service.GetProductById(id);
+            var product = await _service.GetProductById(id);
             if (product == null)
             {
                 return NotFound("Product not found");
             }
             return Ok(product);
         }
+    }
 }

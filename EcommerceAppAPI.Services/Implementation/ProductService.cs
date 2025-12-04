@@ -22,7 +22,7 @@ namespace ECommerce_Standard_.EcommerceAppAPI.Services.Implementation
             return products;
         }
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<Product?> GetProductById(int id)
         {
             var product = await _repo.GetProductById(id);
             if(product == null)
