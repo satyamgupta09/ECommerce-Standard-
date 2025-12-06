@@ -20,7 +20,8 @@ namespace ECommerce_Standard_.EcommerveApp.API.Respositeries.Implmentation
             var conn = new MySqlConnection(_connectionString);
             await conn.OpenAsync();
 
-            var command = new MySqlCommand("SELECT itemsIds FROM Cart WHERE userId = @userId", conn);
+            var command = new MySqlCommand("SELECT productId FROM Cart WHERE userId = @userId", conn);
+            //var command = new MySqlCommand("SELECT productId FROM Cart WH")
             command.Parameters.AddWithValue("@userId", userId);
 
             var reader = await command.ExecuteReaderAsync();
@@ -28,7 +29,7 @@ namespace ECommerce_Standard_.EcommerveApp.API.Respositeries.Implmentation
 
             while(await reader.ReadAsync())
             {
-                var itemsIdsString = reader["itemsIds"].ToString();
+                var itemsIdsString = reader["productId"].ToString();
                 var productIds = itemsIdsString?.Split(',').Select(id => int.Parse(id)).ToList();
 
                 foreach(var prodId in productIds)
@@ -43,23 +44,50 @@ namespace ECommerce_Standard_.EcommerveApp.API.Respositeries.Implmentation
             return products;
         }
 
-        public async Task<bool> AddToCart(int userId, int itemId)
+        public async Task<bool> AddToCart(int userId, int productId)
         {
             var conn = new MySqlConnection(_connectionString);
             await conn.OpenAsync();
 
             var command = new MySqlCommand(
-    "INSERT INTO Cart(userId, itemId) " +
-    "SELECT @userId, @itemId " +
-    "WHERE NOT EXISTS (SELECT 1 FROM Cart WHERE userId = @userId)", conn);
+    "INSERT INTO Cart(userId, productId, qty) " +
+    "SELECT @userId, @productId, 1 " +
+    "WHERE NOT EXISTS (SELECT 1 FROM Cart WHERE userId = @userId AND productId = @productId)", conn);
             command.Parameters.AddWithValue("@userId", userId);
-            command.Parameters.AddWithValue("@itemId", itemId);
-
-            var reader = await command.ExecuteReaderAsync();
+            command.Parameters.AddWithValue("@productId", productId);
 
             var rowsAffected = await command.ExecuteNonQueryAsync();
 
             return rowsAffected > 0;
         }
+
+        public async Task<bool> IncreaseQty(int userId, int productId)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            await conn.OpenAsync();
+
+            var command = new MySqlCommand("UPDATE Cart SET qty = qty + 1 WHERE userId = @userId and productId = @productId", conn);
+            command.Parameters.AddWithValue("@userId", userId);
+            command.Parameters.AddWithValue("@productId", productId);
+
+            var rowAffected = await command.ExecuteNonQueryAsync();
+
+            return rowAffected > 0;
+        }
+
+        public async Task<bool> DecreaseQty(int userId, int productId)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            await conn.OpenAsync();
+
+            var command = new MySqlCommand("UPDATE Cart SET qty = qty - 1 WHERE userId = @userId and productId = @productId and qty > 1", conn);
+            command.Parameters.AddWithValue("@userId", userId);
+            command.Parameters.AddWithValue("@productId", productId);
+
+            var rowAffected = await command.ExecuteNonQueryAsync();
+
+            return rowAffected > 0;
+        }
+
     }
 }
