@@ -34,5 +34,25 @@ namespace ECommerce_Standard_.EcommerceAppAPI.Services.Implementation
             }
             return true;
         }
+
+        public async Task<bool> IncreaseQty(int userId, int productId)
+        {
+            var isIncreased = await _cartRepository.IncreaseQty(userId, productId);
+            if (!isIncreased)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> DecreaseQty(int userId, int productId)
+        {
+            var isDecreased = await _cartRepository.DecreaseQty(userId, productId);
+            if(!isDecreased)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

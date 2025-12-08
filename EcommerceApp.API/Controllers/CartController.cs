@@ -32,5 +32,27 @@ namespace ECommerce_Standard_.EcommerceApp.API.Controllers
             }
             return Ok("Item added to cart successfully");
         }
+
+        [HttpPost("increaseQty")]
+
+        public async Task<IActionResult> IncreaseQty(int userId, int itemId)
+        {
+            var isIncreased = await _cartService.IncreaseQty(userId, itemId);
+            if (!isIncreased)
+            {
+                return BadRequest("Not able to increased");
+            }
+            return Ok("increased");
+        }
+
+        public async Task<IActionResult> DecreaseQty(int userId, int itemId)
+        {
+            var isDecreased = await _cartService.DecreaseQty(userId,itemId);
+            if (!isDecreased)
+            {
+                return BadRequest("Not able to decreased");
+            }
+            return Ok("decreased");
+        }
     }
 }
