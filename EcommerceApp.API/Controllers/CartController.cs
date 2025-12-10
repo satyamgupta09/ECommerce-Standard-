@@ -45,6 +45,7 @@ namespace ECommerce_Standard_.EcommerceApp.API.Controllers
             return Ok("increased");
         }
 
+        [HttpPost("decreaseQty")]
         public async Task<IActionResult> DecreaseQty(int userId, int itemId)
         {
             var isDecreased = await _cartService.DecreaseQty(userId,itemId);

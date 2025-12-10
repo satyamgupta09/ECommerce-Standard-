@@ -41,6 +41,22 @@ using ECommerce_Standard_.EcommerveApp.API.Respositeries.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -80,7 +96,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// app.UseAuthorization(); (optional)
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

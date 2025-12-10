@@ -1,4 +1,5 @@
-﻿using ECommerce_Standard_.EcommerceApp.Core.Models;
+﻿using ECommerce_Standard_.EcommerceApp.Core.DTOs.response;
+using ECommerce_Standard_.EcommerceApp.Core.Models;
 using ECommerce_Standard_.EcommerceAppAPI.Services.Interfaces;
 using ECommerce_Standard_.EcommerveApp.API.Respositeries.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -14,7 +15,7 @@ namespace ECommerce_Standard_.EcommerceAppAPI.Services.Implementation
             _cartRepository = cartRepository;
         }
 
-        public Task<List<Product>> GetUserCart(int userId)
+        public Task<List<GetUserCartResponse>> GetUserCart(int userId)
         {
             var cart = _cartRepository.GetUserCart(userId);
             if(cart == null)
