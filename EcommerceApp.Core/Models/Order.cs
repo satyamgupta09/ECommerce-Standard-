@@ -4,7 +4,7 @@
     {
         int orderId { get; set; }
         int userId { get; set; }
-        List<int> productIds { get; set; }
+        int productId { get; set; }
         DateTime orderDate { get; set; }
         decimal totalAmount { get; set; }
     }

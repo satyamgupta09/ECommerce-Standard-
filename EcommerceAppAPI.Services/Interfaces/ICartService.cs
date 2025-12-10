@@ -1,10 +1,14 @@
-﻿using ECommerce_Standard_.EcommerceApp.Core.Models;
+﻿using ECommerce_Standard_.EcommerceApp.Core.DTOs.response;
+using ECommerce_Standard_.EcommerceApp.Core.Models;
 
 namespace ECommerce_Standard_.EcommerceAppAPI.Services.Interfaces
 {
-    public class ICartService
+    public interface ICartService
     {
-        public Task<List<Cart>> GetUserCart(int userId);
-        public Task<Cart> AddToCart(int userId, int itemId);
+        public Task<List<GetUserCartResponse>> GetUserCart(int userId);
+        public Task<bool> AddToCart(int userId, int itemId);
+
+        public Task<bool> IncreaseQty(int userId, int productId);
+        public Task<bool> DecreaseQty(int userId, int productId);
     }
 }
