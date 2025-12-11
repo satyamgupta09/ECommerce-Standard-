@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="EcommerceApp.Core\DTOs\request\" />
+    <Folder Include="EcommerceApp.Core\NewFolder1\" />
   </ItemGroup>
 
 </Project>
